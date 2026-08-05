@@ -1,0 +1,17 @@
+# Competition data — ROGII rules permit Competition Use only, never redistribute
+data/
+upstream/
+build/
+_verify/
+*.zip
+
+# Kaggle credentials
+kaggle.json
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
