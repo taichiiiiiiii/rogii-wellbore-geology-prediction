@@ -1,117 +1,142 @@
-# ROGII — Wellbore Geology Prediction (final submission)
+# ROGII — Wellbore Geology Prediction 最終提出
 
-Final submission code for the Kaggle competition
-[ROGII — Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
-(Featured, $50,000, RMSE on `tvt`). Team **Latte**.
+> Kaggle コンペティション [ROGII — Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
+> で最終採点に選択した2件の提出を再現するコード（チーム **Latte**）
 
-This branch holds only what produced the two submissions we selected for scoring.
-The research that led there — 140+ logged experiments, most of them dead ends — is on
-the [`develop`](../../tree/develop) branch.
+本ブランチには、最終採点に選んだ提出を生み出したものだけを置いています。そこに至るまでの
+143 件の実験とその大半の失敗は [`develop`](../../tree/develop) ブランチにあります。
 
-| selected submission | public LB | change from the base configuration |
+| 選択した提出 | public LB | 基準設定からの変更点 |
 |---|---|---|
-| `rogii-v2-projdeg2-probe` | **6.394** | trend-fit polynomial degree 3 → 2 |
-| `rogii-v2-seeds192-probe` | **6.389** | particle-filter seed count 128 → 192 |
+| `rogii-v2-projdeg2-probe` | **6.394** | トレンド当てはめの多項式次数を 3 から 2 へ |
+| `rogii-v2-seeds192-probe` | **6.389** | パーティクルフィルタのシード数を 128 から 192 へ |
 
-## The task
+## 目次
 
-Each horizontal well carries a 1-D gamma-ray (GR) log along measured depth. A vertical
-*type well* gives the GR signature against stratigraphic depth (TVT). Because the
-subsurface is layered, the horizontal GR is a locally shifted and stretched copy of the
-type-well GR, and predicting TVT means locating, at every lateral point, where the drill
-bit sits in the stratigraphic column. It is a signal-registration problem with a
-geological prior.
+- [背景](#背景)
+- [インストール](#インストール)
+- [使い方](#使い方)
+- [4つの編集の中身](#4つの編集の中身)
+- [最終2件の選び方](#最終2件の選び方)
+- [出典と再配布について](#出典と再配布について)
+- [メンテナ](#メンテナ)
+- [ライセンス](#ライセンス)
 
-Two measurements shaped everything we did:
+## 背景
 
-- **The error lives in one smooth trend.** `TVT = surface − Z`, and `Z` is known exactly
-  inside the evaluation interval, so the high-frequency part is free. The true surface is
-  a degree-2 polynomial in measured depth to R² = 0.9925.
-- **That trend is not recoverable from GR.** Sub-seismic faulting is not encoded in the
-  log. Twenty-two independent neural architectures across several teams all stall around
-  RMSE 11, which is also where our four from-scratch learned models stopped.
+水平坑井には測定深度に沿った1次元のガンマ線（GR）ログがあり、垂直の*タイプウェル*には
+層序深度（TVT）に対する GR の特徴があります。地下は成層しているため、水平坑井の GR は
+タイプウェルの GR を局所的にずらして伸縮させた複製になっています。TVT を予測するとは、
+各横方向位置でドリルビットが層序のどこにいるかを突き止めることであり、地質学的な事前分布を
+伴う信号レジストレーション問題です。
 
-For scale: a flat prediction scores 15.9, an isolated particle filter or the best neural
-network about 11, our submissions 6.39, the competition winner 4.68, and an oracle that
-knows the smooth surface exactly 3.9. The gap between 11 and 6.4 is not model capacity —
-it is the physically-derived pipeline the public notebook lineage had already built.
+この課題については、次の3つの測定結果が取り組み方のすべてを決めました。
 
-## What is in this branch
+1. **課題は厳密に分解でき、誤差は1本の滑らかなトレンドだけに宿ります。**
+   `TVT = surface − Z` であり、`Z` は評価区間で厳密に既知なので、高周波成分は無償で手に
+   入ります。真の surface は測定深度の2次多項式で R² = 0.9925 まで説明できます。
+2. **そのトレンドは GR から復元できません。** サブサイスミック断層は GR に符号化されて
+   いません。複数チームの独立した 22 個のニューラルネットワーク構成がいずれも RMSE 11
+   付近で頭打ちになり、私たちがゼロから作った4つの学習モデルも同じ水準で止まりました。
+3. **適用先を判定できない信号には価値がありません。** 5つの経路で「信号は確かにある」
+   ことは示せましたが、「どこに適用すべきか」は最後まで示せませんでした。上位陣が非公開で
+   持っていたのは、より良いモデルではなくこの判定機構だと考えています。
 
-```
-build_final_submissions.py   # rebuilds both selected kernels from the upstream notebook
-scripts/submission_status.py # groups submissions by kernel, verifies the final selection
-```
+参考までにオラクルの梯子を並べると、定数予測が 15.9、孤立したパーティクルフィルタや最良の
+ニューラルネットワークが約 11、本提出が 6.39、線形オラクルが 6.6、優勝チームが 4.68、
+滑らかな surface を厳密に知るオラクルが 3.9 です。11 と 6.4 の差はモデルの表現力ではなく、
+公開ノートブックの系統が既に築いていた物理由来のパイプラインによるものです。
 
-`build_final_submissions.py` applies four edits for one kernel and eight for the other,
-each anchored on an exact source string, and refuses to run if an anchor is missing or
-ambiguous. Verified: the notebooks it emits are byte-identical (SHA-256) to the two that
-were actually submitted and scored.
+## インストール
 
-`scripts/submission_status.py --final-check` reads the selection back from the Kaggle API
-(`SUBMISSION_GROUP_SELECTED`) and fails unless it matches the plan. Selection can be set
-only through the web UI, so an independent read-back is the sole objective proof that the
-click landed.
-
-## Provenance, and why the notebook itself is not here
-
-Our submissions are forks of the public Kaggle notebook *ROGGI Physics LB 7.872 v48* by
-**evgendvorkin**, itself the product of a long public fork chain (koolbox offline
-artefacts, the GS1.30+Q0522 line, and several others). We did not write that pipeline.
-
-That notebook carries no stated open-source license, so this repository does not
-redistribute it. Instead the exact patch is published here and the upstream is fetched
-from Kaggle at build time — same reproducibility, no redistribution.
+Python 3.12 と Kaggle アカウント（API トークン）が必要です。
 
 ```bash
-pip install kaggle                      # Kaggle account + API token required
+pip install kaggle
+```
+
+コンペティションのデータは含めていません。ROGII の規約は Competition Use のみを許諾して
+いるため、`data/` 配下は一切コミットしていません。
+
+## 使い方
+
+上流ノートブックを取得し、パッチを適用して2つのカーネルを生成します。
+
+```bash
 kaggle kernels pull evgendvorkin/rogii-physics-lb-7-872-v48 -p upstream -m
 python build_final_submissions.py upstream/rogii-physics-lb-7-872-v48.ipynb -o build
 ```
 
-Set `owner` in the generated `kernel-metadata.json` to your own Kaggle username before
-pushing. Competition data is likewise absent: the ROGII rules permit Competition Use
-only, so nothing under `data/` is ever committed.
+生成された `kernel-metadata.json` の `owner` をご自身の Kaggle ユーザー名に変更してから
+push してください。
 
-## What our four edits actually do
+`build_final_submissions.py` は、一方のカーネルに4箇所、他方に8箇所の編集を適用します。
+各編集は完全一致する固有の文字列を目印にしており、目印が見つからない場合や複数箇所に一致
+する場合は実行を中止します。上流が更新されたときに、それらしく見えるだけの別物へ黙って
+パッチが当たることを防ぐためです。**生成される2つのノートブックは、実際に提出・採点された
+ものと SHA-256 が一致することを検証済みです。**
 
-Two are portability fixes. Kaggle mounts inputs under two different directory layouts and
-which one a worker gets is not predictable; the upstream notebook hardcodes one of them.
-On a legacy-layout worker the competition-data constant kills the run outright, while the
-ridge-artefact constant sits behind an `.exists()` guard and instead drops a model
-component *silently*. Resolving both at run time is a no-op on a current worker and
-repairs the other. We lost seven kernel runs to this before finding it.
+提出状況と最終選択の検証には次を使います。
 
-One relaxes an upstream audit that pins the SHA of a reference submission and raises on
-mismatch — any knob that changes predictions trips it. Only the `raise` becomes a
-`print`; every structural check in that cell stays.
+```bash
+python scripts/submission_status.py            # カーネル別に提出をまとめて表示
+python scripts/submission_status.py --final-check   # 最終選択が計画と一致するか検証
+```
 
-The last one is the actual experiment: a single constant. `projdeg2` lowers the trend-fit
-degree from 3 to 2, which is the one change with independent support from both offline
-evaluation and the leaderboard, and it matches the measured degree-2 geometry of the true
-surface. `seeds192` raises the particle-filter seed count; that also stops the upstream
-seed-branch hedge from firing, so its predictions diverge from the base configuration by
-more than the seed count alone — which is precisely why it pairs well with the other.
+最終選択は Web UI からしか設定できないため、Kaggle API（`SUBMISSION_GROUP_SELECTED`）から
+読み戻すこのチェックが、クリックが実際に反映されたことを示す唯一の客観的な証拠になります。
 
-## Why these two were selected
+## 4つの編集の中身
 
-The final rank uses the better of the two selected submissions, so the pair is worth
-`mean − hedge`, where the hedge grows with how differently the two fail. We measured both
-terms rather than picking the two best public scores:
+2つは可搬性の修正です。Kaggle は入力を2種類のディレクトリ構成でマウントし、どちらに当たるかは
+予測できませんが、上流ノートブックは片方を直接書き込んでいます。旧構成のワーカーを引くと、
+コンペデータの定数はその場で実行を停止させ、リッジ資産の定数は `.exists()` ガードの内側に
+あるため**エラーにならずモデル成分だけが静かに欠落**します。実行時に解決するようにすれば、
+現行構成では挙動が変わらず、旧構成だけが修復されます。これを見つけるまでにカーネルの実行を
+7回失いました。
 
-- **Mean.** Public draws from this configuration family cluster at 6.389–6.442
-  (n = 7, sd 0.017). A separate family we had led with for weeks averaged 6.5195
-  (n = 13) — 0.115 worse, giving it a 2.9% chance of being the better of a pair. It was
-  dropped.
-- **Hedge.** Across all ten candidate pairs, `projdeg2 + seeds192` had both the best mean
-  and the highest disagreement between its members. The pair of the two best public
-  scores would have been the *worst* choice on the hedge axis, since those two happened
-  to be nearly identical predictors.
+1つは上流の監査の緩和です。この監査は参照提出の SHA を固定しており、予測を変える設定変更は
+すべて引っかかります。緩和したのは `raise` を `print` に変えた1箇所だけで、同じセル内の
+構造的な検証はすべて残しています。
 
-Differences among the top three pairs are around 0.01, i.e. inside the noise. The one
-robust conclusion was to drop the 6.411 draw whose family was 0.115 behind.
+最後の1つが実験そのもので、定数1つの変更です。`projdeg2` はトレンド当てはめの次数を3から2へ
+下げます。これはオフライン評価とリーダーボードの両方から独立に支持された唯一の変更であり、
+真の surface が2次であるという測定結果とも一致します。`seeds192` はパーティクルフィルタの
+シード数を増やします。これに伴い上流のシードブランチ・ヘッジが発火しなくなるため、予測は
+シード数だけで説明できる以上に基準設定から離れます。2件を組み合わせる相方として適している
+理由がここにあります。
 
-## License
+## 最終2件の選び方
 
-Our code is MIT-licensed (see `LICENSE`). It does not extend to the upstream notebook,
-which remains under whatever terms its author sets, nor to the competition data.
+最終順位は選択した2件のうち良い方で決まるため、組の価値は「平均 − ヘッジ」で表せます。
+ヘッジは2件の外し方がどれだけ違うかで大きくなります。public スコアの良い順に2件を選ぶのでは
+なく、両方の項を実測しました。
+
+- **平均**: この設定ファミリーの public ドローは 6.389〜6.442（n = 7、標準偏差 0.017）に
+  集中します。数週間主力にしていた別ファミリーは平均 6.5195（n = 13）で 0.115 劣り、組の
+  うち良い方になる確率は 2.9% でした。よって完全に外しました。
+- **ヘッジ**: 候補10組すべてを比べたところ、`projdeg2 + seeds192` が平均と、両者の食い違いの
+  大きさの両方で最良でした。public スコアの上位2件を選ぶ組み合わせは、その2件がほぼ同一の
+  予測器だったため、ヘッジの観点では**最悪**の選択になっていました。
+
+上位3組の差は 0.01 程度でノイズの内側です。唯一堅い結論は、ファミリー平均が 0.115 劣る
+6.411 のドローを外すことでした。
+
+## 出典と再配布について
+
+本提出は、Kaggle の公開ノートブック *ROGGI Physics LB 7.872 v48*（作者: **evgendvorkin**）の
+フォークです。同ノートブック自体も、koolbox のオフライン資産や GS1.30+Q0522 の系統など、
+長い公開フォーク鎖の産物です。**このパイプラインは私たちが書いたものではありません。**
+
+同ノートブックにはオープンソースライセンスの表示がないため、本リポジトリでは再配布を
+行いません。代わりにパッチのみを公開し、上流はビルド時に Kaggle から取得する方式を採って
+います。再現性は同じで、再配布は発生しません。
+
+## メンテナ
+
+[@taichiiiii](https://github.com/taichiiiiiiii)
+
+## ライセンス
+
+私たちが書いたコードは MIT ライセンスです（`LICENSE` を参照）。上流ノートブックおよび
+コンペティションのデータには適用されません。
