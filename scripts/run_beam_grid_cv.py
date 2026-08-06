@@ -29,8 +29,8 @@ sequence or its reachable-state set:
 3. **pre-match smoothing radius** {0, 2, 5} ft-index-radius rolling mean on
    the (optionally calibrated) GR series -- also changes the observation
    sequence; radius 5 matches the reference notebook's "sm5" tag (see
-   ``registration/beam_grid.py`` module docstring / ``notebooks/refs/
-   bernubritz__rogii-lb7295-public-rebuild``).
+   ``registration/beam_grid.py`` module docstring / ``the referenced public notebook
+bernubritz__rogii-lb7295-public-rebuild``).
 4. **transition width** ``max_move_per_row`` in {1, 2, 3} -- changes which
    states are even reachable from row to row, independent of cost scale.
 
