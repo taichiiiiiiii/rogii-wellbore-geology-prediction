@@ -1,0 +1,13 @@
+{
+  "id": "taichiiiii/rogii-dup-overlay-v2",
+  "title": "ROGII dup overlay v2",
+  "code_file": "dup_overlay_v2_submission.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}

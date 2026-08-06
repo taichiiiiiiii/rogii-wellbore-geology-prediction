@@ -1,0 +1,19 @@
+{
+  "id": "taichiiiii/rogii-ens-b2solo",
+  "title": "rogii ens b2solo",
+  "code_file": "blend.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "taichiiiii/rogii-ens-sources"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "rogii-wellbore-geology-prediction"
+  ],
+  "model_sources": []
+}

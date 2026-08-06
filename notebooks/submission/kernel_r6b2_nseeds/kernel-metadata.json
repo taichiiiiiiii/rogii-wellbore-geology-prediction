@@ -1,0 +1,15 @@
+{
+  "id": "taichiiiii/rogii-r6b2-nseeds",
+  "title": "ROGII r6b2 nseeds",
+  "code_file": "r6b2_nseeds.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "rogii-wellbore-geology-prediction"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": []
+}

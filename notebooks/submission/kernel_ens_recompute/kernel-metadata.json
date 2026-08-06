@@ -1,0 +1,25 @@
+{
+  "id": "taichiiiii/rogii-ens-recompute",
+  "title": "rogii ens recompute",
+  "code_file": "ensemble_recompute.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "phongnguyn23021656/koolbox-offline",
+    "nina2025/rogii-03",
+    "pilkwang/rogii-model-package",
+    "thbdh5765/rogii-v10-fresh-artifacts",
+    "fleongg/rogii-claude-models-pub",
+    "needless090/rogii-tabicl-mirror",
+    "ravaghi/wellbore-geology-prediction-artifacts",
+    "taichiiiii/rogii-ens-pipelines"
+  ],
+  "kernel_sources": [],
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "model_sources": []
+}

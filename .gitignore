@@ -1,0 +1,35 @@
+# Data (Kaggle redistribution prohibited — Competition Use only)
+data/raw/
+data/processed/
+*.zip
+
+# Models & outputs
+models/*
+!models/.gitkeep
+outputs/*
+!outputs/.gitkeep
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Kaggle credentials (never commit)
+kaggle.json
+
+# Env
+.env
+catboost_info/
+
+# Third-party notebooks are not redistributed (see README)
+notebooks/refs/
+notebooks/submission/**/*.ipynb
+
+# 内部運用メモ（公開しない）
+CLAUDE.md
+.claude/
+docs/playbooks/

@@ -1,0 +1,10 @@
+{
+  "id": "taichiiiii/rogii-ayodeji-conservative",
+  "title": "ROGII Ayodeji Conservative",
+  "code_file": "ayodeji-conservative.ipynb",
+  "language": "python", "kernel_type": "notebook", "is_private": true,
+  "enable_gpu": true, "enable_tpu": false, "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4", "docker_image_pinning_type": "latest", "keywords": ["gpu"],
+  "dataset_sources": ["phongnguyn23021656/koolbox-offline","ravaghi/wellbore-geology-prediction-artifacts","fleongg/rogii-claude-models-pub","pilkwang/rogii-model-package"],
+  "kernel_sources": [], "competition_sources": ["rogii-wellbore-geology-prediction"], "model_sources": []
+}

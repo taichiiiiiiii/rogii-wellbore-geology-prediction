@@ -1,0 +1,13 @@
+{
+  "id": "taichiiiii/rogii-stack-v2-blend",
+  "title": "ROGII stack v2 blend",
+  "code_file": "stack_v2_blend_submission.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}

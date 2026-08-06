@@ -1,0 +1,19 @@
+{
+  "id": "taichiiiii/rogii-amged-hedge",
+  "title": "ROGII Amged Hedge",
+  "code_file": "amged-hedge.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "phongnguyn23021656/koolbox-offline",
+    "ravaghi/wellbore-geology-prediction-artifacts",
+    "fleongg/rogii-claude-models-pub"
+  ],
+  "kernel_sources": [],
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "model_sources": []
+}

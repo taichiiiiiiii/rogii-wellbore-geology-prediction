@@ -1,0 +1,17 @@
+{
+  "id": "taichiiiii/rogii-nn-train-tcn",
+  "title": "ROGII NN train TCN",
+  "code_file": "nn_train_tcn.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": [],
+  "dataset_sources": [
+    "taichiiiii/rogii-nn-dataset"
+  ],
+  "kernel_sources": [],
+  "docker_image_pinning_type": "latest",
+  "machine_shape": "NvidiaTeslaT4"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "taichiiiii/rogii-reg-train",
+  "title": "ROGII Reg Train",
+  "code_file": "reg_train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "docker_image_pinning_type": "latest",
+  "keywords": ["gpu"],
+  "dataset_sources": ["taichiiiii/rogii-reg-dataset"],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}

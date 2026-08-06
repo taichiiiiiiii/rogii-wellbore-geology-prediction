@@ -1,0 +1,13 @@
+{
+  "id": "taichiiiii/rogii-nn-dataset-builder",
+  "title": "ROGII NN dataset builder",
+  "code_file": "nn_dataset_builder.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}

@@ -1,0 +1,13 @@
+{
+  "id": "taichiiiii/rogii-probe-carry-last",
+  "title": "ROGII probe carry_last",
+  "code_file": "probe_carry_last.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["rogii-wellbore-geology-prediction"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
