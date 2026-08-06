@@ -29,7 +29,7 @@ the task report): a full leak-safe scan of all 773 train wells found only 6
 segment of their own lateral (near-strike-parallel for their whole length),
 not a handful of segments -- this is a bimodal, not a gradual, property.
 K16's own 3-well Kaggle smoke log (kept for reference at
-``/tmp/claude-.../scratchpad/connortynan_output/*.log``) likewise shows
+``$ROGII_WORK/connortynan_output/*.log``) likewise shows
 "gate fires 0/16" on every well it printed, consistent with rarity rather
 than an implementation bug here.
 
