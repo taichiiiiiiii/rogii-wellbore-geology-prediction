@@ -14,13 +14,14 @@ Usage:
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 DATA = Path(__file__).resolve().parents[1] / "data" / "raw" / "train"
-CACHE = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/levelling")
+CACHE = Path(os.environ.get("ROGII_WORK", "work") + "/levelling")
 COLS = ["MD", "X", "Y", "Z", "TVT", "TVT_input"]
 
 

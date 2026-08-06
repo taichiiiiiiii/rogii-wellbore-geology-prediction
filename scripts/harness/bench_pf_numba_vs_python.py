@@ -16,6 +16,7 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import json
 import sys
 import time
@@ -24,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-SCRATCH = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad")
+SCRATCH = Path(os.environ.get("ROGII_WORK", "work"))
 NB = SCRATCH / "pfmean" / "rogii-gs145-pfmean035" / "rogii-gs145-pfmean035.ipynb"
 DATA = Path(__file__).resolve().parents[2] / "data" / "raw" / "train"
 

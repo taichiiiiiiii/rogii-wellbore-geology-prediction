@@ -17,16 +17,17 @@ that well's known zone, so it is fold-independent by construction).
 
 from __future__ import annotations
 
+import os
 import json
 from pathlib import Path
 
 import numpy as np
 
 CACHE = Path(
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/peraudit"
+    os.environ.get("ROGII_WORK", "work") + "/peraudit"
 )
 K40 = Path(
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/"
+    os.environ.get("ROGII_WORK", "work") + "/"
     "harness_audit/k40/cv_summary.json"
 )
 NFOLD = 5

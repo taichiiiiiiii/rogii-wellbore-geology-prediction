@@ -36,8 +36,8 @@
 
 set -u -o pipefail
 
-REPO=/root/competition/Kaggle/rogii-wellbore-geology-prediction
-SCRATCH=/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad
+REPO="${ROGII_REPO:-$(git rev-parse --show-toplevel)}"
+SCRATCH="${ROGII_WORK:-work}"
 AUDIT="$SCRATCH/harness_audit"
 KAGGLE="$REPO/.venv/bin/kaggle"
 

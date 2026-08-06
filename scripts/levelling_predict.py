@@ -44,7 +44,7 @@ from levelling_network import pair_observations, solve_network, trend_levelling 
 # holdout sets (k40b/c/d) without overwriting the k40 development artifacts.
 K40 = Path(os.environ.get(
     "ROGII_HARNESS_DIR",
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/harness_audit/k40"))
+    os.environ.get("ROGII_WORK", "work") + "/harness_audit/k40"))
 SET_TAG = os.environ.get("ROGII_SET_TAG", "")
 ANCHOR_TAIL = 300
 HOLDBACK_FT = 500.0

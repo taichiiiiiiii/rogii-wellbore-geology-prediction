@@ -13,13 +13,14 @@ Two deliberate departures from scripts/anchored_spatial_surface.py:
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 from scipy.spatial import cKDTree
 
-CACHE = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/levelling")
+CACHE = Path(os.environ.get("ROGII_WORK", "work") + "/levelling")
 DONOR_STRIDE = 8
 RADIUS = 1500.0
 POWER = 2.0

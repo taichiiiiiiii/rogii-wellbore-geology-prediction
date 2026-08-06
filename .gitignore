@@ -33,3 +33,6 @@ notebooks/submission/**/*.ipynb
 CLAUDE.md
 .claude/
 docs/playbooks/
+
+# ローカル作業ディレクトリ（ROGII_WORK）
+work/

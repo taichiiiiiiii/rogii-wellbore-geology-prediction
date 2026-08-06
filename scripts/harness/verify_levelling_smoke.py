@@ -30,6 +30,7 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import hashlib
 import io
 import json
@@ -42,7 +43,7 @@ from pathlib import Path
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-SCRATCH = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad")
+SCRATCH = Path(os.environ.get("ROGII_WORK", "work"))
 NB_PATH = SCRATCH / "levelling_kernel" / "rogii-gs145-levelling" / "rogii-gs145-levelling.ipynb"
 DATA_ROOT = REPO / "data" / "raw"
 WORKDIR = SCRATCH / "levelling_kernel" / "smoke_work"

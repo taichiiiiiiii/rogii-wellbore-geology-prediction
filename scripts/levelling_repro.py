@@ -16,6 +16,7 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -25,7 +26,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from levelling_common import CACHE, build_field, donor_mask, load  # noqa: E402
 
-K40 = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/harness_audit/k40")
+K40 = Path(os.environ.get("ROGII_WORK", "work") + "/harness_audit/k40")
 ANCHOR_TAIL = 300
 
 

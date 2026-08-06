@@ -19,12 +19,13 @@ scale. Both knobs default to values that reproduce the unmodified pipeline.
 
 from __future__ import annotations
 
+import os
 import ast
 import json
 import shutil
 from pathlib import Path
 
-HERE = Path("/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad")
+HERE = Path(os.environ.get("ROGII_WORK", "work"))
 SRC = HERE / "pfmean" / "rogii-gs145-pfmean035" / "rogii-gs145-pfmean035.ipynb"
 OUT = HERE / "adaptpf"
 SLUG = "rogii-gs145-adaptpf"

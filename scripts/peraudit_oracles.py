@@ -14,6 +14,7 @@ Answers, for d[i] = TVT_true[i] - TVT_anchor over the eval zone:
 
 from __future__ import annotations
 
+import os
 import json
 import sys
 from pathlib import Path
@@ -24,10 +25,10 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 CACHE = Path(
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/peraudit"
+    os.environ.get("ROGII_WORK", "work") + "/peraudit"
 )
 K40 = Path(
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/"
+    os.environ.get("ROGII_WORK", "work") + "/"
     "harness_audit/k40/cv_summary.json"
 )
 

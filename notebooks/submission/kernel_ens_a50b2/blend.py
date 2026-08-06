@@ -13,8 +13,8 @@ import pandas as pd
 WEIGHTS = {'A': 0.5, 'B2': 0.5}     # source_key -> weight (only nonzero used)
 FILES = {'A': 'sub_A.csv', 'B1': 'sub_B1.csv', 'B2': 'sub_B2.csv'}         # source_key -> filename in the dataset
 DATASET_MOUNT = "rogii-ens-sources"
-LOCAL_DS = "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad/ens_sources_dataset"
-SAMPLE_LOCAL = "/root/competition/Kaggle/rogii-wellbore-geology-prediction/data/raw/sample_submission.csv"
+LOCAL_DS = os.environ.get("ROGII_WORK", "work") + "/ens_sources_dataset"
+SAMPLE_LOCAL = os.environ.get("ROGII_REPO", ".") + "/data/raw/sample_submission.csv"
 
 
 def _dbg():

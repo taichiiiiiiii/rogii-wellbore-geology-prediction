@@ -36,6 +36,7 @@ build_k40b.py -- see that docstring for why the SRC_CANDIDATES list exists.
 
 from __future__ import annotations
 
+import os
 import ast
 import json
 import shutil
@@ -43,7 +44,7 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 SCRATCH = Path(
-    "/tmp/claude-0/-root/358631d3-278c-4097-9c59-7f0aee48d95f/scratchpad"
+    os.environ.get("ROGII_WORK", "work")
 )
 
 # Prefer the in-repo copy (matches build_variants.py's own SRC path); fall
