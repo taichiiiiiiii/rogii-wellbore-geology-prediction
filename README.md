@@ -1,7 +1,7 @@
 # ROGII — Wellbore Geology Prediction 最終提出
 
 > Kaggle コンペティション [ROGII — Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
-> で最終採点に選択した2件の提出を再現するコード（チーム **Latte**）
+> で最終採点に選択した2件の提出を再現するコード
 
 本ブランチには、最終採点に選んだ提出を生み出したものだけを置いています。そこに至るまでの
 142 件の実験と、その大半を占める失敗の記録は [`develop`](../../tree/develop) ブランチに
@@ -33,7 +33,6 @@
 - [編集の中身](#編集の中身)
 - [最終2件の選び方](#最終2件の選び方)
 - [出典と再配布について](#出典と再配布について)
-- [メンテナ](#メンテナ)
 - [ライセンス](#ライセンス)
 
 ## 背景
@@ -181,10 +180,6 @@ surface が2次であるという測定とも一致します。`seeds192` はパ
 
 コンペティションのデータも同様に含めていません。ROGII の規約は Competition Use のみを許諾
 しています。
-
-## メンテナ
-
-[@taichiiiiiiii](https://github.com/taichiiiiiiii)（Kaggle: `taichiiiii`）
 
 ## ライセンス
 
